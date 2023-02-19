@@ -9,7 +9,7 @@ exports.addProduct = async (req, res) => {
         res.status(200).json({
             result: product,
             status: "success",
-            message: "post is Successfully",
+            message: "Product added Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -36,7 +36,7 @@ exports.getProduct = async (req, res) => {
         res.status(200).json({
             result: product,
             status: "success",
-            message: "Get billing list is Successfully",
+            message: "Getting products is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -53,7 +53,7 @@ exports.getSingleProduct = async (req, res) => {
         res.status(200).json({
             result: product,
             status: "success",
-            message: "Get single billing is Successfully",
+            message: "Getting single product is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -71,7 +71,7 @@ exports.updateProduct = async (req, res) => {
         res.status(200).json({
             result: product,
             status: "success",
-            message: "Update billing is Successfully",
+            message: "Updating product is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -90,7 +90,7 @@ exports.deleteProduct = async (req, res) => {
         res.status(200).json({
             result: product,
             status: "success",
-            message: "Delete billing is Successfully",
+            message: "Deleting product is Successfully",
         });
     } catch (error) {
         res.status(500).json({

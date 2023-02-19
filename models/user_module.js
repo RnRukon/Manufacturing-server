@@ -30,6 +30,10 @@ const userSchema = Mongoose.Schema({
         type: Boolean,
         default: false
     },
+    roll:{
+       type:String,
+       default:'user'
+    },
     token: String
 
 },

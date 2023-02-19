@@ -9,7 +9,7 @@ exports.addQuestion = async (req, res) => {
         res.status(200).json({
             result: question,
             status: "success",
-            message: "post is Successfully",
+            message: "Question added is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -36,7 +36,7 @@ exports.getQuestion = async (req, res) => {
         res.status(200).json({
             result: question,
             status: "success",
-            message: "Get billing list is Successfully",
+            message: "Getting Questions is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -53,7 +53,7 @@ exports.getSingleQuestion = async (req, res) => {
         res.status(200).json({
             result: question,
             status: "success",
-            message: "Get single billing is Successfully",
+            message: "Getting single Question is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -71,7 +71,7 @@ exports.updateQuestion = async (req, res) => {
         res.status(200).json({
             result: question,
             status: "success",
-            message: "Update billing is Successfully",
+            message: "Updating Question is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -90,7 +90,7 @@ exports.deleteQuestion = async (req, res) => {
         res.status(200).json({
             result: question,
             status: "success",
-            message: "Delete billing is Successfully",
+            message: "Deleting Question is Successfully",
         });
     } catch (error) {
         res.status(500).json({

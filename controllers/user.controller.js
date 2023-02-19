@@ -11,7 +11,7 @@ exports.getMe = async (req, res) => {
         res.status(200).json({
             result: user,
             status: "success",
-            message: "Successfully signed up",
+            message: "Getting me is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -29,7 +29,7 @@ exports.logout = async (req, res) => {
         res.status(200).json({
             result: user,
             status: "success",
-            message: "Successfully signed up",
+            message: "Logout in is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -46,7 +46,7 @@ exports.registration = async (req, res) => {
         res.status(200).json({
             result: user,
             status: "success",
-            message: "Successfully signed up",
+            message: "Signup is Successfully",
         });
     } catch (error) {
         res.status(500).json({
@@ -62,7 +62,7 @@ exports.login = async (req, res) => {
         res.status(200).json({
             result: user,
             status: "success",
-            message: "Successfully signed up",
+            message: "Sign in is Successfully",
         });
     } catch (error) {
         res.status(500).json({
