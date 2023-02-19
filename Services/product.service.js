@@ -1,8 +1,12 @@
+
 const Product = require("../models/product _model");
 
 
 
 exports.addProductService = async (productData) => {
+
+
+
     const product = await Product.create(productData);
     return product;
 };
@@ -33,13 +37,15 @@ exports.getSingleProductByIdService = async (id) => {
 
 exports.updateProductByIdService = async (id, data) => {
 
-    const product = await Product.findOneAndUpdate(
+    const product = await Product.updateOne(
         { _id: id },
         data,
         {
             runValidators: true,
         }
     );
+
+    
     return product;
 };
 

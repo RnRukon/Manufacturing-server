@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-
 //middlewares
 app.use(express.json());
 app.use(cors());
 
+app.use('/images', express.static('./images'));
 
 // routers
 const product = require("./Routes/products.route");

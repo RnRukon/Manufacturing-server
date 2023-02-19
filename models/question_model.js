@@ -4,10 +4,11 @@ const questionSchema = Mongoose.Schema({
     question: {
         type: String,
         trim: true,
+        required: [true, 'Question is required']
     },
     name: {
         type: String,
-        required: [true, 'name is required']
+        required: [true, 'Name is required']
     },
     email: {
         type: String,
@@ -15,8 +16,9 @@ const questionSchema = Mongoose.Schema({
         trim: true,
     },
     status: {
-        type: Boolean,
-        default:false,
+        type: String,
+        default:'pending',
+        enum: ["pending", "approved"],
     }
 
 },

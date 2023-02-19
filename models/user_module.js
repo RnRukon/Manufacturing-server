@@ -23,20 +23,31 @@ const userSchema = Mongoose.Schema({
     },
     password: {
         type: String,
-        require: true,
-        trim: true,
-    },
-    active: {
-        type: Boolean,
-        default: false
-    },
-    roll:{
-       type:String,
-       default:'user'
-    },
-    token: String
+        required: [true, "Password is must be required"],
+        validate: {
+            validator: (value) =>
+                validator.isStrongPassword(value, {
+                    minLength: 6,
+                    /*   minLowercase: 3,
+                      minNumbers: 1,
+                      minUppercase: 1,
+                      minSymbols: 1, */
+                }),
+            message: "Password {VALUE} is not strong enough.",
+        }},
+        status: {
+            type: String,
+            default: "inactive",
+            enum: ["active", "inactive", "blocked"],
+        },
+        roll: {
+            type: String,
+            default: 'user',
+            enum: ["user", "admin", "supplier"],
+        },
+        token: String
 
-},
+    },
     {
         timestamps: true,
     }

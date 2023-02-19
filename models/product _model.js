@@ -9,7 +9,7 @@ const productSchema = Mongoose.Schema({
         minLength: [3, "Title must be at least 3 characters."],
     },
     image: {
-        type: String,
+        type: Object,
         required: [true, 'Image is required']
     },
     description: {
