@@ -1,5 +1,8 @@
 const Mongoose = require("mongoose");
 const validator = require("validator");
+const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
+
 
 
 const userSchema = Mongoose.Schema({
@@ -34,24 +37,50 @@ const userSchema = Mongoose.Schema({
                       minSymbols: 1, */
                 }),
             message: "Password {VALUE} is not strong enough.",
-        }},
-        status: {
-            type: String,
-            default: "inactive",
-            enum: ["active", "inactive", "blocked"],
-        },
-        roll: {
-            type: String,
-            default: 'user',
-            enum: ["user", "admin", "supplier"],
-        },
-        token: String
-
+        }
     },
+    status: {
+        type: String,
+        default: "inactive",
+        enum: ["active", "inactive", "blocked"],
+    },
+   
+    role: {
+        type: String,
+        default: 'user',
+        enum: ["user", "admin", "supplier"],
+    },
+    profileImg: Object
+    ,
+    confirmationToken: String,
+    confirmationTokenExpires: Date,
+},
     {
         timestamps: true,
     }
 );
+
+
+
+userSchema.methods.generateConfirmationToken = function () {
+    const token = crypto.randomBytes(32).toString("hex");
+    this.confirmationToken = token;
+
+    const date = new Date();
+
+    date.setDate(date.getDate() + 1);
+    this.confirmationTokenExpires = date;
+
+    return token;
+};
+
+userSchema.methods.comparePassword = function (password, hash) {
+    const isPasswordValid = bcrypt.compareSync(password, hash);
+    return isPasswordValid;
+};
+
+
+
 
 const User = Mongoose.model('User', userSchema);
 

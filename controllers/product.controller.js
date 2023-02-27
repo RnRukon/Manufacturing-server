@@ -5,16 +5,9 @@ const { addProductService, getAllProductService, updateProductByIdService, delet
 exports.addProduct = async (req, res) => {
 
     try {
-        const fileName = await req?.file?.filename;
-        const host = req.protocol + '://' + req.get('host');
-        const image = host + "/images/" + fileName;
 
-        const file = req.file;
-        file.image = image;
-        const newData = req.body
-        newData.image = file;
 
-        const product = await addProductService(newData);
+        const product = await addProductService(req);
 
         res.status(200).json({
             result: product,
@@ -76,17 +69,9 @@ exports.getSingleProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        const fileName = await req?.file?.filename;
-        const host = req.protocol + '://' + req.get('host');
-        const image = host + "/images/" + fileName;
-        const file = req?.file;
-        file.image = image;
-        const newData = req.body
-        if (file) {
-            newData.image = file;
-        }
 
-        const product = await updateProductByIdService(req.params.id, req.body);
+
+        const product = await updateProductByIdService(req.params.id, req);
 
         res.status(200).json({
             result: product,

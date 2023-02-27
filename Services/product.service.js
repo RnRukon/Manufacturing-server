@@ -3,11 +3,19 @@ const Product = require("../models/product _model");
 
 
 
-exports.addProductService = async (productData) => {
+exports.addProductService = async (req) => {
 
+    const fileName = await req?.file?.filename;
+    const host = req.protocol + '://' + req.get('host');
+    const image = host + "/images/" + fileName;
 
+    const file = req.file;
+    file.image = image;
+    
+    const newData = req.body
+    newData.image = file;
 
-    const product = await Product.create(productData);
+    const product = await Product.create(newData);
     return product;
 };
 
@@ -35,17 +43,28 @@ exports.getSingleProductByIdService = async (id) => {
     return product;
 };
 
-exports.updateProductByIdService = async (id, data) => {
+exports.updateProductByIdService = async (id, req) => {
+
+    const fileName = await req?.file?.filename;
+    const host = await req.protocol + '://' + req.get('host');
+    const image = host + "/images/" + fileName;
+    const file = await req?.file;
+    file.image = image;
+    const newData = await req.body
+    if (file) {
+        newData.image = await file;
+    }
+
 
     const product = await Product.updateOne(
         { _id: id },
-        data,
+        newData,
         {
             runValidators: true,
         }
     );
 
-    
+
     return product;
 };
 
