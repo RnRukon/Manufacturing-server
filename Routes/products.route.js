@@ -7,8 +7,14 @@ const verifyToken = require("../Middleware/verifyToken");
 
 const router = express.Router();
 
-router.post("/add-product", verifyToken, authorization('user'), uploader.single("image"), addProduct);
+router.post("/create-product",
+    verifyToken,
+    authorization('user'),
+    uploader
+        .single("image"),
+    addProduct);
 
+    
 router.get("/get-products", getProduct);
 
 router.get("/get-single-product/:id", getSingleProduct);

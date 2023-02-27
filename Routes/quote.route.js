@@ -8,12 +8,20 @@ const verifyToken = require("../Middleware/verifyToken");
 
 const router = express.Router();
 
-router.post("/add-quote/:id", threeDFileUploader.single("threeDFile"), addQuote);
+router.post("/create-a-quote/:id",
+    verifyToken,
+    threeDFileUploader
+        .single("threeDFile"),
+    addQuote);
 
-router.patch("/upload-ThreeD-File/:id",
-    threeDFileUploader.single("threeDFile"),
+router.patch("/update-ThreeD-File/:id",
+    verifyToken,
+    threeDFileUploader
+        .single("threeDFile"),
     uploadTheeDFile);
 
-router.get("/get-my-quote/:id", getMyQuotes);
+router.get("/get-my-quotes/:id",
+    verifyToken,
+    getMyQuotes);
 
 module.exports = router;
