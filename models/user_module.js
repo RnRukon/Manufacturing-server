@@ -11,11 +11,10 @@ const userSchema = Mongoose.Schema({
         require: true,
         trim: true,
     },
-    userName: {
+    username: {
         type: String,
-        require: true,
         trim: true,
-        unique: [true, "User name is must be unique"],
+        unique: [true, "Username is exist, please provide a unique username!"],
     },
     email: {
         type: String,
@@ -38,13 +37,14 @@ const userSchema = Mongoose.Schema({
                 }),
             message: "Password {VALUE} is not strong enough.",
         }
+
     },
     status: {
         type: String,
         default: "inactive",
         enum: ["active", "inactive", "blocked"],
     },
-   
+
     role: {
         type: String,
         default: 'user',
@@ -76,6 +76,7 @@ userSchema.methods.generateConfirmationToken = function () {
 
 userSchema.methods.comparePassword = function (password, hash) {
     const isPasswordValid = bcrypt.compareSync(password, hash);
+
     return isPasswordValid;
 };
 
@@ -84,4 +85,4 @@ userSchema.methods.comparePassword = function (password, hash) {
 
 const User = Mongoose.model('User', userSchema);
 
-module.exports = User
+module.exports = User;

@@ -24,7 +24,10 @@ exports.getMe = async (req, res) => {
 
 
     try {
-        const user = await findUserByEmail(req.params.email);
+        const email = req?.user?.email;
+        const user = await findUserByEmail(email);
+
+
         if (!user) {
             return res.status(500).json({
                 status: "fail",
@@ -48,7 +51,7 @@ exports.getMe = async (req, res) => {
 exports.registration = async (req, res) => {
     try {
         const user = await registrationService(req.body);
-        const token =await user.generateConfirmationToken();
+        const token = await user.generateConfirmationToken();
 
         await user.save({ validateBeforeSave: false });
 
@@ -57,8 +60,6 @@ exports.registration = async (req, res) => {
         const mailData = {
             to: [user.email],
             subject: "Verify your Account",
-            /*    text: `Thank you for creating your account. Please confirm your account here:${req.protocol
-                   }://${req.get("host")}${req.originalUrl}/confirmation/${token}`, */
             html: verifyEmail(`${req.protocol
                 }://${req.get("host")}${req.originalUrl}/confirmation/${token}`)
         };
@@ -89,7 +90,6 @@ exports.login = async (req, res) => {
                 error: "Please provide your credentials",
             });
         }
-
         const user = await findUserByEmail(email);
 
 
@@ -99,9 +99,8 @@ exports.login = async (req, res) => {
                 error: "No user found. Please create an account",
             });
         }
-        const isPasswordValid =await user.comparePassword(password, user.password);
 
-
+        const isPasswordValid = await user.comparePassword(password, user.password);
 
         if (!isPasswordValid) {
             return res.status(403).json({
@@ -219,10 +218,10 @@ exports.updateProfileImage = async (req, res) => {
         // hash password----------------
 
         const fileName = await req?.file?.filename;
-        const host =await req.protocol + '://' + req.get('host');
+        const host = await req.protocol + '://' + req.get('host');
         const image = host + "/images/" + fileName;
 
-        const file =await req.file;
+        const file = await req.file;
         file.image = image;
         user.profileImg = file;
         user.save();
@@ -270,14 +269,7 @@ exports.confirmEmail = async (req, res) => {
 
         const { password: pwd, ...others } = user.toObject();
 
-        res.status(200).json({
-            result: {
-                user: others,
-                token: tokenAuth
-            },
-            status: "success",
-            message: "Successfully activated your account.",
-        });
+        res.status(200).redirect('http://localhost:3000');
     } catch (error) {
         res.status(500).json({
             status: "fail",

@@ -1,7 +1,7 @@
 
 
 exports.verifyEmail = (confirmation) => {
-    return `    
+  return `    
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -52,9 +52,9 @@ exports.verifyEmail = (confirmation) => {
         </style>
       </head>
       <body>
-        <center class="wrapper">
-          <div class="container">
-            <table class="news-letter" align="center">
+        <center className="wrapper">
+          <div className="container">
+            <table className="news-letter" align="center">
               <tr>
                 <td>
                   <table width="100%" align="center">

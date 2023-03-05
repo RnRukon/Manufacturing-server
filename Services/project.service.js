@@ -2,7 +2,7 @@ const Project = require("../models/project_model");
 
 
 
-exports.addProjectService = async (ProjectData) => {
+exports.createProjectService = async (ProjectData) => {
     const project = await Project.create(ProjectData);
     return project;
 };

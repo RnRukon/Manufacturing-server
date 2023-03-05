@@ -1,9 +1,9 @@
 
-const { addProjectService, getAllProjectService, updateProjectByIdService, deleteProjectByIdService, getSingleProjectByIdService, getMyProjectService } = require("../Services/project.service");
+const { createProjectService, getAllProjectService, updateProjectByIdService, deleteProjectByIdService, getSingleProjectByIdService, getMyProjectService } = require("../Services/project.service");
 const { findUserByEmail } = require("../Services/user.service");
 
 
-exports.addProject = async (req, res) => {
+exports.createProject = async (req, res) => {
     try {
 
         const email = req?.user?.email;
@@ -27,12 +27,12 @@ exports.addProject = async (req, res) => {
         const newData = { ...req.body, email, user: user?._id }
 
 
-        const project = await addProjectService(newData);
+        const project = await createProjectService(newData);
 
         res.status(200).json({
             result: project,
             status: "success",
-            message: "Project added is Successfully",
+            message: "Project create is Successfully",
         });
     } catch (error) {
         res.status(500).json({
