@@ -1,0 +1,16 @@
+
+# BD_URL='mongodb+srv://programmingHeroTask:dq9AWQ4wKv9HPQJ0@cluster0.af4at.mongodb.net/Manufacturing?retryWrites=true&w=majority'  
+
+
+BD_URL_Local='mongodb://127.0.0.1:27017/Manufacturing'
+
+PORT=5000
+
+
+TOKEN_SECRET='dsfgsfgjpfjgpfjsjfosuoefosidfslflofdofhohfoefhofhsfperut0e9tuew09tut0504337'
+
+# GOOGLE FOR MAIL
+CLIENT_ID='267729664400-9i153cejbrklabv36qqb26h1ge67fht8.apps.googleusercontent.com'
+CLIENT_SECRET='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'
+REFRESH_TOKEN='1//04VVLo36TLIhrCgYIARAAGAQSNwF-L9IrqoBBytUck4Ip-GFeibD7vNOnU_xBwInzz7UJtiXQU85g2bPeq4qSK6nMIJI0-IKxzZI'
+SENDER_MAIL='rukon.js@gmail.com'
