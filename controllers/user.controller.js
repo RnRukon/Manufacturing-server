@@ -143,10 +143,11 @@ exports.updatePassword = async (req, res) => {
 
 
     try {
+        const email = req?.user?.email;
         const { oldPassword, newPassword } = req.body;
 
         // check provide user information---------------
-        if (!req.params.email && !oldPassword && !newPassword) {
+        if (!email && !oldPassword && !newPassword) {
             return res.status(401).json({
                 status: "fail",
                 error: "Please provide information.",
@@ -154,13 +155,13 @@ exports.updatePassword = async (req, res) => {
         }
 
         // find user in Database-----------------------
-        const user = await findUserByEmail(req.params.email);
+        const user = await findUserByEmail(email);
 
 
         if (!user) {
             return res.status(401).json({
                 status: "fail",
-                error: "User not found please try again",
+                error: "Your password not match please try again",
             })
         }
 
@@ -170,7 +171,7 @@ exports.updatePassword = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(403).json({
                 status: "fail",
-                error: "Password is not correct",
+                error: "Your password not match please try again",
             });
         }
         // hash password----------------
@@ -197,7 +198,7 @@ exports.updateProfileImage = async (req, res) => {
 
 
     try {
-        const { email } = req.params;
+        const email = req?.user?.email;
         if (!email) {
             return res.status(401).json({
                 status: "fail",

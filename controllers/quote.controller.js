@@ -4,19 +4,22 @@ exports.addQuote = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const type = req?.body?.type
+
         if (!req.file) {
             return res.suite(401).json({
                 status: 'fail',
                 error: 'Pleas add a file'
             })
         }
+        const uniqueSuffix = Math.round(Math.random() * 1E5) + '-' + Math.round(Math.random() * 1E5);
         const fileName = await req?.file?.filename;
         const host = await req.protocol + '://' + req.get('host');
         const fileURL = host + "/threeDFiles/" + fileName;
 
         const newFile = await { ...req.file, fileURL };
 
-        const newQuote = { quoteTitle: fileName, threeDFile: newFile, projectId: id };
+        const newQuote = { quoteTitle: uniqueSuffix, threeDFile: newFile, projectId: id, type };
 
         const quote = await addQuoteService(newQuote);
         res.status(200).json({

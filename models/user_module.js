@@ -23,6 +23,31 @@ const userSchema = Mongoose.Schema({
         validate: [validator.isEmail, "Provide a valid Email"],
         unique: [true, "Email is must be unique"],
     },
+    company: {
+        type: String,
+        require: true,
+        trim: true,
+    },
+    country: {
+        type: String,
+        require: true,
+        trim: true,
+    },
+    phoneNumber: {
+        type: String,
+        require: true,
+        trim: true,
+    },
+    postalCode: {
+        type: String,
+        require: true,
+        trim: true,
+    },
+    language: {
+        type: String,
+        require: true,
+        trim: true,
+    },
     password: {
         type: String,
         required: [true, "Password is must be required"],

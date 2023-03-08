@@ -1,5 +1,5 @@
 const Project = require("../models/project_model");
-
+const { deleteMyQuoteService } = require("./quote.service")
 
 
 exports.createProjectService = async (ProjectData) => {
@@ -61,5 +61,6 @@ exports.updateProjectByIdService = async (id, data) => {
 exports.deleteProjectByIdService = async (id) => {
 
     const project = await Project.deleteOne({ _id: id });
+    await deleteMyQuoteService(id);
     return project;
 };

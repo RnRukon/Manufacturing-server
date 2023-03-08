@@ -12,6 +12,10 @@ const quoteSchema = mongoose.Schema({
         trim: true,
         minLength: [3, "Title must be at least 3 characters."],
     },
+    type: {
+        type: String,
+        require: true
+    },
     threeDFile: {
         type: Object,
         require: [true, "File is required"]

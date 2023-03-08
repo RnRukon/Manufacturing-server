@@ -11,12 +11,9 @@ exports.findAllUserService = async () => {
 
 exports.registrationService = async (userInfo) => {
     const hashedPassword = await bcrypt.hash(userInfo.password, 10);
-    const newUser = new User({
-        name: userInfo.name,
-        email: userInfo.email,
-        userName: userInfo.userName,
-        password: hashedPassword
-    });
+    let newUser = new User({ ...userInfo });
+    newUser.password = hashedPassword;
+    newUser.confirmPassword = undefined;
 
     const user = await User.create(newUser);
     return user;
