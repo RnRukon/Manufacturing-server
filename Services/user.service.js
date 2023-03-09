@@ -9,6 +9,19 @@ exports.findAllUserService = async () => {
 
 
 
+exports.updateDetailsService = async (userInfo, email) => {
+
+    const user = await User.findOneAndUpdate(
+        { email: email },
+        userInfo,
+        {
+            runValidators: true,
+        });
+
+    return user;
+};
+
+
 exports.registrationService = async (userInfo) => {
     const hashedPassword = await bcrypt.hash(userInfo.password, 10);
     let newUser = new User({ ...userInfo });

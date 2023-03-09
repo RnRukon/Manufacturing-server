@@ -1,5 +1,5 @@
 const express = require("express");
-const { addQuote, uploadTheeDFile, getMyQuotes } = require("../controllers/quote.controller");
+const { addQuote, uploadTheeDFile, getMyQuotes, getMySingleQuotes, updateMySingleQuotes } = require("../controllers/quote.controller");
 const threeDFileUploader = require("../Middleware/threeDFileUploader");
 
 const verifyToken = require("../Middleware/verifyToken");
@@ -20,8 +20,14 @@ router.patch("/update-ThreeD-File/:id",
         .single("threeDFile"),
     uploadTheeDFile);
 
+router.patch("/update-my-quote/:id", verifyToken, updateMySingleQuotes)
+
+
 router.get("/get-my-quotes/:id",
     verifyToken,
     getMyQuotes);
+router.get("/get-my-single-quote/:id",
+    verifyToken,
+    getMySingleQuotes);
 
 module.exports = router;
