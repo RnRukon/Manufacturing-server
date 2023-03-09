@@ -8,7 +8,6 @@ exports.findAllUserService = async () => {
 };
 
 
-
 exports.registrationService = async (userInfo) => {
     const hashedPassword = await bcrypt.hash(userInfo.password, 10);
     let newUser = new User({ ...userInfo });
