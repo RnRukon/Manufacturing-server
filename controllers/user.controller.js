@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { registrationService, findUserByToken, findUserByEmail, findAllUserService } = require("../Services/user.service");
+const { registrationService, findUserByToken, findUserByEmail, findAllUserService, updateDetailsService } = require("../Services/user.service");
 const { sendMailWithGmail } = require("../utils/email");
 const { generateToken } = require("../utils/token");
 const { verifyEmail } = require('../utils/verifyEmail');
@@ -48,6 +48,25 @@ exports.getMe = async (req, res) => {
 };
 
 
+exports.updateDetails = async (req, res) => {
+    try {
+        const email = req?.user?.email;
+        const info = req.body;
+       
+        const user = await updateDetailsService(info, email);
+
+        res.status(200).json({
+            result: user,
+            status: "success",
+            message: "Your details is update successfully!",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            error,
+        });
+    }
+};
 exports.registration = async (req, res) => {
     try {
         const user = await registrationService(req.body);
@@ -198,7 +217,7 @@ exports.updateProfileImage = async (req, res) => {
 
 
     try {
-        const email = req?.user?.email;
+        const { email } = req.params;
         if (!email) {
             return res.status(401).json({
                 status: "fail",

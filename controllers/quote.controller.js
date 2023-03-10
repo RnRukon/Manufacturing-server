@@ -1,4 +1,4 @@
-const { addQuoteService, uploadTheeDFileService, getMyQuoteService } = require("../Services/quote.service");
+const { addQuoteService, updateMyQuoteService, uploadTheeDFileService, getMyQuoteService, getMySingleQuoteService } = require("../Services/quote.service");
 
 exports.addQuote = async (req, res) => {
     try {
@@ -42,7 +42,41 @@ exports.getMyQuotes = async (req, res) => {
         res.status(200).json({
             result: quotes,
             status: "success",
-            message: "Quote create is Successfully",
+            message: "Get Quote  is Successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            error,
+        });
+    }
+};
+exports.getMySingleQuotes = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const quote = await getMySingleQuoteService(id);
+        res.status(200).json({
+            result: quote,
+            status: "success",
+            message: "Single Quote get is Successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            error,
+        });
+    }
+};
+exports.updateMySingleQuotes = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const quote = await updateMyQuoteService(id, req.body);
+        res.status(200).json({
+            result: quote,
+            status: "success",
+            message: "Update Quote is Successfully",
         });
     } catch (error) {
         res.status(500).json({

@@ -16,6 +16,24 @@ const quoteSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    material: {
+        type: String,
+    },
+    resolution: {
+        type: String,
+    },
+    orientation: {
+        type: String,
+    },
+    finish: {
+        type: String,
+    },
+    price: {
+        type: Number,
+    },
+    quantity: {
+        type: Number,
+    },
     threeDFile: {
         type: Object,
         require: [true, "File is required"]
