@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const Supplier = require('../models/supplier.model');
 const User = require("../models/user_module");
 
 
@@ -43,4 +44,26 @@ exports.findUserByEmail = async (email) => {
 
 exports.findUserByToken = async (token) => {
     return await User.findOne({ confirmationToken: token });
+};
+
+
+exports.ApplyForSupplierService = async (data) => {
+    return await Supplier.create(data);
+};
+exports.getApplyForSupplierService = async () => {
+
+    return await Supplier.find({});
+};
+exports.makeAddApplyForSupplierService = async (email) => {
+
+    return await User.updateOne({ email },
+        { role: "supplier" },
+        {
+            runValidators: true,
+        });
+};
+exports.deleteApplyForSupplierService = async (email) => {
+
+    return await User.deleteOne({ email })
+
 };

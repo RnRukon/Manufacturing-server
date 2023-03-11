@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { registrationService, findUserByToken, findUserByEmail, findAllUserService, updateDetailsService } = require("../Services/user.service");
+const { registrationService, findUserByToken, findUserByEmail, findAllUserService, updateDetailsService, ApplyForSupplierService, getApplyForSupplierService,makeAddApplyForSupplierService } = require("../Services/user.service");
 const { sendMailWithGmail } = require("../utils/email");
 const { generateToken } = require("../utils/token");
 const { verifyEmail } = require('../utils/verifyEmail');
@@ -52,7 +52,7 @@ exports.updateDetails = async (req, res) => {
     try {
         const email = req?.user?.email;
         const info = req.body;
-       
+
         const user = await updateDetailsService(info, email);
 
         res.status(200).json({
@@ -290,6 +290,124 @@ exports.confirmEmail = async (req, res) => {
         const { password: pwd, ...others } = user.toObject();
 
         res.status(200).redirect('http://localhost:3000');
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            error,
+        });
+    }
+};
+
+
+exports.applyForSupplier = async (req, res) => {
+    try {
+        const { email } = req.user;
+
+        const user = await findUserByEmail(email);
+
+        if (!user) {
+            return res.status(401).json({
+                status: "fail",
+                error: "You are No authenticated. Please create an account",
+            });
+        }
+
+
+        if (user.status != "active") {
+            return res.status(401).json({
+                status: "fail",
+                error: "Your account is not active yet.",
+            });
+        }
+
+
+
+        const supplier = await ApplyForSupplierService(req.body);
+
+
+        res.status(200).json({
+            result: {
+                supplier: supplier,
+
+            },
+            status: "success",
+            message: "Apply for supplier is Successfully",
+        });
+
+
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            error,
+        });
+    }
+};
+
+
+exports.getApplyForSupplier = async (req, res) => {
+    try {
+
+        const supplier = await getApplyForSupplierService();
+
+        res.status(200).json({
+            result: {
+                supplier: supplier,
+
+            },
+            status: "success",
+            message: "Apply for supplier is Successfully",
+        });
+
+
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            error,
+        });
+    }
+};
+
+exports.makeAddApplyForSupplier = async (req, res) => {
+    try {
+
+        const email = req.body.email;
+
+        const supplier = await makeAddApplyForSupplierService(email);
+
+        res.status(200).json({
+            result: {
+                supplier: supplier,
+
+            },
+            status: "success",
+            message: "Make a supplier is Successfully",
+        });
+
+
+    } catch (error) {
+        res.status(500).json({
+            status: "fail",
+            error,
+        });
+    }
+};
+exports.deleteApplyForSupplier = async (req, res) => {
+    try {
+
+        const email = req.body.email;
+
+        const supplier = await deleteApplyForSupplierService(email);
+
+        res.status(200).json({
+            result: {
+                supplier: supplier,
+
+            },
+            status: "success",
+            message: "Delete apply supplier is Successfully",
+        });
+
+
     } catch (error) {
         res.status(500).json({
             status: "fail",
