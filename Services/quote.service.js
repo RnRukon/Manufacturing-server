@@ -18,6 +18,10 @@ exports.deleteMyQuoteService = async (id) => {
     const quotes = await Quote.deleteMany({ projectId: id });
     return quotes;
 };
+exports.deleteSingleQuoteService = async (id) => {
+    const quotes = await Quote.deleteOne({ _id: id });
+    return quotes;
+};
 
 
 

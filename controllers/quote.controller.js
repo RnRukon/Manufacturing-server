@@ -1,4 +1,4 @@
-const { addQuoteService, updateMyQuoteService, uploadTheeDFileService, getMyQuoteService, getMySingleQuoteService, deleteMyQuoteService } = require("../Services/quote.service");
+const { addQuoteService, updateMyQuoteService, uploadTheeDFileService, getMyQuoteService, getMySingleQuoteService, deleteSingleQuoteService } = require("../Services/quote.service");
 
 exports.addQuote = async (req, res) => {
     try {
@@ -89,7 +89,7 @@ exports.deleteMySingleQuotes = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const quote = await deleteMyQuoteService(id);
+        const quote = await deleteSingleQuoteService(id);
         res.status(200).json({
             result: quote,
             status: "success",
