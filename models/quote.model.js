@@ -37,6 +37,10 @@ const quoteSchema = mongoose.Schema({
     threeDFile: {
         type: Object,
         require: [true, "File is required"]
+    },
+    status:{
+        type:String,
+        enum: ["pending", "approved", "rejected"],
     }
 },
     {
